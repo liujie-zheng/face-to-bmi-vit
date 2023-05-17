@@ -131,4 +131,6 @@ if __name__ == "__main__":
     bmi_dataset = BMIDataset('../data/data.csv', '../data/Images', 'bmi', ToTensor())
     train_dataset, val_dataset, test_dataset = train_val_test_split(bmi_dataset)
     show_sample_image(train_dataset)
+    show_sample_image(val_dataset)
+    show_sample_image(test_dataset)
 
