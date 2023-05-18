@@ -8,9 +8,8 @@ from torch.utils.data import Dataset
 from torch.utils.data import DataLoader
 from torch.utils.data import random_split
 from torchvision import transforms as T
-from torchvision.transforms import ToTensor
+from torchvision.transforms import ToTensor, InterpolationMode
 from torchvision.transforms.functional import adjust_contrast, adjust_brightness
-from torchvision.models import ViT_H_14_Weights
 
 
 class RandomDistortion(torch.nn.Module):
@@ -48,6 +47,15 @@ augmentation_transforms = T.Compose([
     T.RandomApply([T.ColorJitter(brightness=(0.5, 1.5), contrast=(0.8, 1.2), saturation=(0.8, 1.2), hue=(0.0, 0.1))], p=1),
     RandomAdjustContrast(probability=0.5, min_factor=0.8, max_factor=1.2),
     T.Lambda(lambda img: adjust_brightness(img, torch.rand(1).item() + 0.5))
+])
+
+vit_transforms = T.Compose([
+    T.Resize([518], interpolation=InterpolationMode.BICUBIC),  # Resize image using bicubic interpolation
+    T.CenterCrop([518]),                                       # Central crop
+    T.Normalize(                                               # Normalize the image
+        mean=[0.485, 0.456, 0.406],                                     # These are the mean values for pretrained models
+        std=[0.229, 0.224, 0.225]                                       # These are the standard deviation values for pretrained models
+    )
 ])
 
 
@@ -93,7 +101,7 @@ class AugmentedBMIDataset(Dataset):
 
 
 class VitTransformedDataset(Dataset):
-    def __init__(self, original_dataset, transforms=None):
+    def __init__(self, original_dataset, transforms=vit_transforms):
         self.original_dataset = original_dataset
         self.transforms = transforms
 
@@ -102,6 +110,7 @@ class VitTransformedDataset(Dataset):
 
     def __getitem__(self, idx):
         image, y = self.original_dataset[idx]
+
         if self.transforms:
             image = self.transforms(image)
 
@@ -138,7 +147,7 @@ def train_val_test_split(dataset, augmented=True, vit_transformed=True):
 
 
 
-def get_dataloaders(train_dataset, val_dataset, test_dataset, batch_size=32, augmented=True):
+def get_dataloaders(train_dataset, val_dataset, test_dataset, batch_size=32):
     train_loader = DataLoader(train_dataset, batch_size=batch_size,  shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=batch_size,  shuffle=False)
@@ -150,6 +159,11 @@ def get_dataloaders(train_dataset, val_dataset, test_dataset, batch_size=32, aug
 
 if __name__ == "__main__":
     bmi_dataset = BMIDataset('../data/data.csv', '../data/Images', 'bmi', ToTensor())
+    train_dataset, val_dataset, test_dataset = train_val_test_split(bmi_dataset, vit_transformed=False)
+    show_sample_image(train_dataset)
     train_dataset, val_dataset, test_dataset = train_val_test_split(bmi_dataset)
     show_sample_image(train_dataset)
+    image, label = train_dataset.__getitem__(50)
+
+    print(image.shape, image.mean().item(), label)
 
