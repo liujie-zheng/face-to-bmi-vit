@@ -10,7 +10,7 @@ from torch.utils.data import random_split
 from torchvision import transforms as T
 from torchvision.transforms import ToTensor
 from torchvision.transforms.functional import adjust_contrast, adjust_brightness
-
+from torchvision.models import ViT_H_14_Weights
 
 
 class RandomDistortion(torch.nn.Module):
@@ -85,11 +85,27 @@ class AugmentedBMIDataset(Dataset):
     def __getitem__(self, idx):
         image, y = self.original_dataset[idx // 5]
 
-        if self.transforms:
+        if self.transforms and (idx % 5 != 0):
             image = self.transforms(image)
 
         return image, y
 
+
+
+class VitTransformedDataset(Dataset):
+    def __init__(self, original_dataset, transforms=None):
+        self.original_dataset = original_dataset
+        self.transforms = transforms
+
+    def __len__(self):
+        return len(self.original_dataset)
+
+    def __getitem__(self, idx):
+        image, y = self.original_dataset[idx]
+        if self.transforms:
+            image = self.transforms(image)
+
+        return image, y
 
 
 def show_sample_image(dataset):
@@ -103,7 +119,7 @@ def show_sample_image(dataset):
 
 
 
-def train_val_test_split(dataset, augmented=True):
+def train_val_test_split(dataset, augmented=True, vit_transformed=True):
     val_size = int(0.1 * len(dataset))
     test_size = int(0.2 * len(dataset))
     train_size = len(dataset) - val_size - test_size
@@ -112,6 +128,11 @@ def train_val_test_split(dataset, augmented=True):
 
     if augmented:
         train_dataset = AugmentedBMIDataset(train_dataset, augmentation_transforms)
+
+    if vit_transformed:
+        train_dataset = VitTransformedDataset(train_dataset)
+        val_dataset = VitTransformedDataset(val_dataset)
+        test_dataset = VitTransformedDataset(test_dataset)
 
     return train_dataset, val_dataset, test_dataset
 
@@ -131,6 +152,4 @@ if __name__ == "__main__":
     bmi_dataset = BMIDataset('../data/data.csv', '../data/Images', 'bmi', ToTensor())
     train_dataset, val_dataset, test_dataset = train_val_test_split(bmi_dataset)
     show_sample_image(train_dataset)
-    show_sample_image(val_dataset)
-    show_sample_image(test_dataset)
 
