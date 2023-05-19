@@ -22,3 +22,7 @@ python ./scripts/demo.py
 ```
 
 ## Train it by yourself
+In root directory, run:
+```
+python ./scripts/run.py
+```
