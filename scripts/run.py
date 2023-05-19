@@ -134,7 +134,7 @@ if __name__ == "__main__":
     parser.add_argument('--augmented', type=bool, default=False, help='set to True to use augmented dataset')
     args = parser.parse_args()
 
-    train_loader, val_loader, test_loader = get_dataloaders(16, augmented=args.augmented, vit_transformed=True, show_sample=False)
+    train_loader, val_loader, test_loader = get_dataloaders(16, augmented=args.augmented, vit_transformed=True, show_sample=True)
     model = get_model().float().to(device)
     loss_fn = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
