@@ -22,7 +22,11 @@ python ./scripts/demo.py
 ```
 
 ## Train it by yourself
-In root directory, run:
+In root directory, train the original dataset by running:
 ```
 python ./scripts/run.py
+```
+Or train the augmented dataset by running:
+```
+python ./scripts/run.py -a
 ```
