@@ -1,7 +1,6 @@
 # Face to Body Mass Index
-Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. 
-<br>
-This project predicts the BMI value with one image of a human face.
+This model predicts **Body Mass Index (BMI)** with one image of a human face, with **state-of-the-art** results.
+![alt flowchart](assets/flowchart.jpg)
 
 ## Performance
 The performance of the model is on par with the current benchmarks set by **[state-of-the-art methods](https://ieeexplore.ieee.org/document/9744191)**.
