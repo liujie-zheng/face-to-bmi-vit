@@ -1,14 +1,18 @@
 # Face to Body Mass Index
-Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. 
-<br>
-This project predicts the BMI value with one image of a human face.
+This model predicts **Body Mass Index (BMI)** with one image of a human face, with **state-of-the-art** results.
+![alt flowchart](assets/flowchart.jpg)
 
 ## Performance
-With original unaugmented dataset, after training 10 epoches, the model has a MAE loss of ``3.45`` on the test dataset. <br>
-With augmented dataset, still training...
+The performance of the model is on par with the current benchmarks set by **[state-of-the-art methods](https://ieeexplore.ieee.org/document/9744191)**.
+### Original dataset
+After training 10 epoches, the model has a MAE loss of ``3.45`` on test dataset.
+![alt original dataset sample](assets/original_dataset_sample.jpg)
+### Augmented dataset
+Still training...
+![alt augmented dataset sample](assets/augmented_dataset_sample.jpg)
 
 ## Installation
-1. Clone this repository by running: (It should take some time since the weight files are large)
+1. Clone this repository by running:
 ```
 git clone git@github.com:liujie-zheng/face-to-bmi-vit.git
 cd face-to-bmi-vit
@@ -26,7 +30,7 @@ conda activate face2bmi
 ```
 
 ## Run a demo in terminal
-1. (Optional) replace ./data/test_pic.jpg with your own image. Note: for your own image, a face should occupy a substantial part of the image for optimal results.
+1. (Optional) replace ./data/test_pic.jpg with your own image. **Note:** for your own image, a face should occupy a substantial part of the image for optimal results.
 2. In root directory, run:
 ```
 cd scripts
@@ -41,10 +45,10 @@ sudo conda run -n face2bmi --no-capture-output python demo.py
 In root directory, train the original unaugmented dataset by running:
 ```
 cd scripts
-python run.py
+conda run -n face2bmi --no-capture-output python run.py
 ```
 or train the augmented dataset by running:
 ```
 cd scripts
-python run.py -a
+conda run -n face2bmi --no-capture-output python run.py --augmented=True
 ```

@@ -184,9 +184,5 @@ def get_dataloaders(batch_size=16, augmented=True, vit_transformed=True, show_sa
 
 # for test
 if __name__ == "__main__":
-    bmi_dataset = BMIDataset('../data/data.csv', '../data/Images', 'bmi', ToTensor())
-    vit_dataset = VitTransformedDataset(bmi_dataset)
-    for i in range(0, len(vit_dataset)):
-        print(f"getting {i}")
-        vit_dataset.__getitem__(i)
-    print("Done")
+    get_dataloaders(augmented=False, show_sample=True)
+    get_dataloaders(augmented=True, show_sample=True)
