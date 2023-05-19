@@ -37,24 +37,6 @@ if you encounter a ``PermissionError: [Errno 13] Permission denied`` error, inst
 sudo conda run -n face2bmi --no-capture-output python demo.py
 ```
 
-## Run a demo with webcam in Jupyter Notebook
-1. Install notebook, opencv and prepare ipykernel by running:
-```
-conda install notebook
-conda install -c anaconda ipykernel
-python -m ipykernel install --user --name=face2bmi
-```
-2. Install opencv capturing image with webcam by running:
-```
-conda install -c conda-forge opencv
-```
-3. In the root directory, open notebook by running:
-```
-jupyter notebook demo.ipynb
-```
-4. In the notebook, use ``Cell`` -> ``Run All`` to capture an image and predict BMI.
-
-
 ## Train it by yourself
 In root directory, train the original unaugmented dataset by running:
 ```
