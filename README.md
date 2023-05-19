@@ -19,7 +19,7 @@ conda activate face2bmi
 2. In root directory, run:
 ```
 cd scripts
-python demo.py
+conda run -n face2bmi --no-capture-output python demo.py
 ```
 
 ## Train it by yourself
