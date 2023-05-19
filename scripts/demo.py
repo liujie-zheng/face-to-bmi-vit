@@ -52,11 +52,11 @@ class TqdmUpTo(tqdm):
 if __name__ == "__main__":
     if not os.path.exists("../weights"):
         os.makedirs("../weights")
-        weight_dir = "../weights/no_aug_epoch_10.pt"
-        url = "https://face-to-bmi-weights.s3.us-east.cloud-object-storage.appdomain.cloud/no_aug_epoch_10.pt"
+        weight_dir = "../weights/aug_epoch_7.pt"
+        url = "https://face-to-bmi-weights.s3.us-east.cloud-object-storage.appdomain.cloud/aug_epoch_7.pt"
         print("dowloading weights...")
         with TqdmUpTo(unit='B', unit_scale=True, miniters=1, desc=url.split('/')[-1]) as t:
             urllib.request.urlretrieve(url, weight_dir, reporthook=t.update_to)
 
-    pred = test_and_show('../data/test_pic.jpg', '../weights/no_aug_epoch_10.pt')
+    pred = test_and_show('../data/test_pic.jpg', '../weights/aug_epoch_7.pt')
     print(f'Predicted BMI: {pred}')
