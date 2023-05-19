@@ -2,7 +2,7 @@
 This project predicts the BMI value with one image of the human face.
 
 ## Installation
-1. Clone this repository by running: (It should take sometime since the weight files are large)
+1. Clone this repository by running: (It should take some time since the weight files are large)
 ```
 git clone git@github.com:liujie-zheng/face-to-bmi.git
 cd face-to-bmi
