@@ -8,7 +8,7 @@ git clone git@github.com:liujie-zheng/face-to-bmi.git
 cd face-to-bmi
 ```
 2. Install conda [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
-3. Install dependencies
+3. Install dependencies by running:
 ```
 conda env create -f environment.yml
 conda activate face2bmi
