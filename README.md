@@ -29,7 +29,10 @@ conda activate face2bmi
 cd scripts
 conda run -n face2bmi --no-capture-output python demo.py
 ```
-
+if you encounter a ``PermissionError: [Errno 13] Permission denied`` error, instead run:
+```
+sudo conda run -n face2bmi --no-capture-output python demo.py
+```
 ## Train it by yourself
 In root directory, train the original unaugmented dataset by running:
 ```
