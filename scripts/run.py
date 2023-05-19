@@ -122,7 +122,7 @@ class EarlyStopping:
     def save_checkpoint(self, val_loss, model):
         if self.verbose:
             print(f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
-        torch.save(model.state_dict(), '../weights/checkpoint.pt')  # save checkpoint
+        torch.save(model.state_dict(), '../weights/aug_epoch_7.pt')  # save checkpoint
         self.val_loss_min = val_loss
 
 
@@ -151,7 +151,7 @@ if __name__ == "__main__":
             print("Early stopping")
             break
 
-    # model.load_state_dict(torch.load('../weights/no_aug_epoch_10.pt'))
+    model.load_state_dict(torch.load('../weights/checkpoint.pt'))
     test(test_loader, model)
 
     print("Done!")
