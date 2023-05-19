@@ -7,8 +7,8 @@ After training 10 epoches on the original unaugmented dataset, the model has an 
 ## Installation
 1. Clone this repository by running: (It should take some time since the weight files are large)
 ```
-git clone git@github.com:liujie-zheng/face-to-bmi.git
-cd face-to-bmi
+git clone git@github.com:liujie-zheng/face-to-bmi-vit.git
+cd face-to-bmi-vit
 ```
 2. Install conda [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
 3. Depending on your operating system, install dependencies by running: 
