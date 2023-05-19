@@ -1,7 +1,0 @@
-pip
-python=3.10
-torch
-torchvision
-pandas
-pillow
-matplotlib

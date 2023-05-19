@@ -39,3 +39,8 @@ def get_model():
     model.heads = heads
 
     return model
+
+
+if __name__ == "__main__":
+    model = get_model()
+    print(model)

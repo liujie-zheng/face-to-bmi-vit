@@ -12,6 +12,7 @@ from torchvision.transforms import ToTensor, InterpolationMode
 from torchvision.transforms.functional import adjust_contrast, adjust_brightness
 
 
+# helper class for random distortion
 class RandomDistortion(torch.nn.Module):
     def __init__(self, probability=0.25, grid_width=2, grid_height=2, magnitude=8):
         super().__init__()
@@ -22,10 +23,11 @@ class RandomDistortion(torch.nn.Module):
 
     def forward(self, img):
         if torch.rand(1).item() < self.probability:
-            return T.functional.affine(img, 0, [0, 0], 1, [self.magnitude, self.magnitude], resample=0, fillcolor=0)
+            return T.functional.affine(img, 0, [0, 0], 1, [self.magnitude, self.magnitude], interpolation=T.InterpolationMode.NEAREST, fill=[0, 0, 0])
         else:
             return img
 
+# helper class for random adjust contrast
 class RandomAdjustContrast(torch.nn.Module):
     def __init__(self, probability=.5, min_factor=0.8, max_factor=1.2):
         super().__init__()
@@ -40,6 +42,7 @@ class RandomAdjustContrast(torch.nn.Module):
         else:
             return img
 
+# transforms for data augmentation
 augmentation_transforms = T.Compose([
     T.RandomRotation(5),
     T.RandomHorizontalFlip(p=0.5),
@@ -49,21 +52,29 @@ augmentation_transforms = T.Compose([
     T.Lambda(lambda img: adjust_brightness(img, torch.rand(1).item() + 0.5))
 ])
 
+# transforms for vit
 vit_transforms = T.Compose([
-    T.Resize([518], interpolation=InterpolationMode.BICUBIC),  # Resize image using bicubic interpolation
-    T.CenterCrop([518]),                                       # Central crop
-    T.Normalize(                                               # Normalize the image
-        mean=[0.485, 0.456, 0.406],                                     # These are the mean values for pretrained models
-        std=[0.229, 0.224, 0.225]                                       # These are the standard deviation values for pretrained models
+    T.Resize([518], interpolation=InterpolationMode.BICUBIC),
+    T.CenterCrop([518]),
+    T.Normalize(
+        mean=[0.485, 0.456, 0.406],
+        std=[0.229, 0.224, 0.225]
     )
 ])
 
 
 
+# the original dataset
 class BMIDataset(Dataset):
     def __init__(self, csv_path, image_folder, y_col_name, transform=None):
         self.csv = pd.read_csv(csv_path)
         self.image_folder = image_folder
+
+        # Drop the rows where the image does not exist
+        images = os.listdir(image_folder)
+        self.csv = self.csv[self.csv['name'].isin(images)]
+        self.csv.reset_index(drop=True, inplace=True)
+
         self.y_col_name = y_col_name
         self.transform = transform
 
@@ -73,6 +84,11 @@ class BMIDataset(Dataset):
     def __getitem__(self, idx):
         image_path = os.path.join(self.image_folder, self.csv.iloc[idx, 4])
         image = Image.open(image_path)
+
+        # check the channel number
+        if image.mode != 'RGB':
+            image = image.convert('RGB')
+
         y = self.csv.loc[idx, self.y_col_name]
 
         if self.transform:
@@ -82,6 +98,7 @@ class BMIDataset(Dataset):
 
 
 
+# the augmented dataset
 class AugmentedBMIDataset(Dataset):
     def __init__(self, original_dataset, transforms=None):
         self.original_dataset = original_dataset
@@ -100,6 +117,7 @@ class AugmentedBMIDataset(Dataset):
 
 
 
+# the dataset transformed for vit inputs
 class VitTransformedDataset(Dataset):
     def __init__(self, original_dataset, transforms=vit_transforms):
         self.original_dataset = original_dataset
@@ -117,6 +135,7 @@ class VitTransformedDataset(Dataset):
         return image, y
 
 
+# show 5 sample images
 def show_sample_image(dataset):
     fig, axs = plt.subplots(nrows=1, ncols=5, figsize=(15, 3))
     for i, ax in enumerate(axs):
@@ -127,7 +146,7 @@ def show_sample_image(dataset):
     plt.show()
 
 
-
+# split dataset and (optionally) augment and/ or transform it for vit
 def train_val_test_split(dataset, augmented=True, vit_transformed=True):
     val_size = int(0.1 * len(dataset))
     test_size = int(0.2 * len(dataset))
@@ -147,7 +166,14 @@ def train_val_test_split(dataset, augmented=True, vit_transformed=True):
 
 
 
-def get_dataloaders(train_dataset, val_dataset, test_dataset, batch_size=32):
+# get dataloaders
+def get_dataloaders(batch_size=16, augmented=True, vit_transformed=True, show_sample=False):
+    bmi_dataset = BMIDataset('../data/data.csv', '../data/Images', 'bmi', ToTensor())
+    if show_sample:
+        train_dataset, val_dataset, test_dataset = train_val_test_split(bmi_dataset, augmented, vit_transformed=False)
+        show_sample_image(train_dataset)
+    train_dataset, val_dataset, test_dataset = train_val_test_split(bmi_dataset, augmented, vit_transformed)
+
     train_loader = DataLoader(train_dataset, batch_size=batch_size,  shuffle=True)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False)
     test_loader = DataLoader(test_dataset, batch_size=batch_size,  shuffle=False)
@@ -156,14 +182,11 @@ def get_dataloaders(train_dataset, val_dataset, test_dataset, batch_size=32):
 
 
 
-
+# for test
 if __name__ == "__main__":
     bmi_dataset = BMIDataset('../data/data.csv', '../data/Images', 'bmi', ToTensor())
-    train_dataset, val_dataset, test_dataset = train_val_test_split(bmi_dataset, vit_transformed=False)
-    show_sample_image(train_dataset)
-    train_dataset, val_dataset, test_dataset = train_val_test_split(bmi_dataset)
-    show_sample_image(train_dataset)
-    image, label = train_dataset.__getitem__(50)
-
-    print(image.shape, image.mean().item(), label)
-
+    vit_dataset = VitTransformedDataset(bmi_dataset)
+    for i in range(0, len(vit_dataset)):
+        print(f"getting {i}")
+        vit_dataset.__getitem__(i)
+    print("Done")
