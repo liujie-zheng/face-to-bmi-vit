@@ -1,4 +1,6 @@
-# Face to BMI
+# Face to Body Mass Index
+Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. 
+<br>
 This project predicts the BMI value with one image of the human face.
 
 ## Performance
