@@ -2,7 +2,7 @@
 This project predicts the BMI value with one image of the human face.
 
 ## Performance
-After training 10 epoches on the original unaugmented dataset, the model has an L1 loss of ``3.45`` on the test dataset.
+After training 10 epoches on the original unaugmented dataset, the model has an MAE loss of ``3.45`` on the test dataset.
 
 ## Installation (Linux)
 1. Clone this repository by running: (It should take some time since the weight files are large)
