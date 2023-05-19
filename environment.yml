@@ -27,7 +27,7 @@ dependencies:
   - cycler=0.11.0=pyhd3eb1b0_0
   - dbus=1.13.18=hb2f20db_0
   - expat=2.4.9=h6a678d5_0
-  - ffmpeg=4.3=hf484d3e_0
+  - ffmpeg=4.2.2=h20bf706_0
   - filelock=3.9.0=py310h06a4308_0
   - fontconfig=2.14.1=h4c34cd2_2
   - fonttools=4.25.0=pyhd3eb1b0_0
@@ -67,11 +67,11 @@ dependencies:
   - libffi=3.4.4=h6a678d5_0
   - libgcc-ng=11.2.0=h1234567_1
   - libgomp=11.2.0=h1234567_1
-  - libiconv=1.16=h7f8727e_2
   - libidn2=2.3.2=h7f8727e_0
   - libllvm14=14.0.6=hdb19cb5_3
   - libnpp=11.8.0.86=0
   - libnvjpeg=11.9.0.86=0
+  - libopus=1.3.1=h7b6447c_0
   - libpng=1.6.39=h5eee18b_0
   - libpq=12.9=h16c4e8d_3
   - libstdcxx-ng=11.2.0=h1234567_1
@@ -79,6 +79,7 @@ dependencies:
   - libtiff=4.5.0=h6a678d5_2
   - libunistring=0.9.10=h27cfd23_0
   - libuuid=1.41.5=h5eee18b_0
+  - libvpx=1.7.0=h439df22_0
   - libwebp=1.2.4=h11a3e52_1
   - libwebp-base=1.2.4=h5eee18b_1
   - libxcb=1.15=h7f8727e_0
@@ -140,10 +141,12 @@ dependencies:
   - torchtriton=2.0.0=py310
   - torchvision=0.15.2=py310_cu118
   - tornado=6.2=py310h5eee18b_0
+  - tqdm=4.65.0=py310h2f386ee_0
   - typing_extensions=4.5.0=py310h06a4308_0
   - tzdata=2023c=h04d1e81_0
   - urllib3=1.26.15=py310h06a4308_0
   - wheel=0.38.4=py310h06a4308_0
+  - x264=1!157.20191217=h7b6447c_0
   - xz=5.4.2=h5eee18b_0
   - zlib=1.2.13=h5eee18b_0
   - zstd=1.5.5=hc292b87_0

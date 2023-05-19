@@ -1,5 +1,8 @@
+import os
+import urllib.request
 from PIL import Image
 from matplotlib import pyplot as plt
+from tqdm import tqdm
 
 import torch
 from torchvision.transforms import ToTensor
@@ -38,6 +41,22 @@ def test_and_show(img_dir, weight_dir):
     return pred.item()
 
 
+
+class TqdmUpTo(tqdm):
+    def update_to(self, b=1, bsize=1, tsize=None):
+        if tsize is not None:
+            self.total = tsize
+        self.update(b * bsize - self.n)
+
+
 if __name__ == "__main__":
+    weight_dir = "../weights/no_aug_epoch_10.pt"
+    url = "https://face-to-bmi-weights.s3.us-east.cloud-object-storage.appdomain.cloud/no_aug_epoch_10.pt"
+
+    if not os.path.exists(weight_dir):
+        print("dowloading weights...")
+        with TqdmUpTo(unit='B', unit_scale=True, miniters=1, desc=url.split('/')[-1]) as t:
+            urllib.request.urlretrieve(url, weight_dir, reporthook=t.update_to)
+
     pred = test_and_show('../data/test_pic.jpg', '../weights/no_aug_epoch_10.pt')
     print(f'Predicted BMI: {pred}')
