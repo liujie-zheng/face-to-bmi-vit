@@ -20,7 +20,7 @@ conda activate face2bmi
 ```
 
 ## Run a demo
-1. (Optional) replace ./data/test_pic.jpg with your own image. Note: the face should occupy a substantial part of the image for optimal results.
+1. (Optional) replace ./data/test_pic.jpg with your own image. Note: a face should occupy a substantial part of the image for optimal results.
 2. In root directory, run:
 ```
 cd scripts
