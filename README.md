@@ -22,7 +22,7 @@ conda env create -f environment_mac.yml
 conda activate face2bmi
 ```
 
-## Run a demo
+## Run a demo in terminal
 1. (Optional) replace ./data/test_pic.jpg with your own image. Note: for your own image, a face should occupy a substantial part of the image for optimal results.
 2. In root directory, run:
 ```
