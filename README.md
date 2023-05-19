@@ -33,6 +33,27 @@ if you encounter a ``PermissionError: [Errno 13] Permission denied`` error, inst
 ```
 sudo conda run -n face2bmi --no-capture-output python demo.py
 ```
+
+## Run a demo with webcam in Jupyter Notebook
+1. Install notebook by running:
+```
+conda install notebook
+```
+2. Install ipykernel by running:
+```
+conda install -c anaconda ipykernel
+```
+3. Add the ipykernel to your notebook by running:
+```
+python -m ipykernel install --user --name=face2bmi
+```
+4. In the root directory, open notebook by running:
+```
+jupyter notebook demo.ipynb
+```
+5. Follow the notebook
+
+
 ## Train it by yourself
 In root directory, train the original unaugmented dataset by running:
 ```
