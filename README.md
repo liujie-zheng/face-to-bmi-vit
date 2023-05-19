@@ -18,15 +18,18 @@ conda activate face2bmi
 1. (Optional) replace ./data/test_pic.jpg with your own image.
 2. In root directory, run:
 ```
-python ./scripts/demo.py
+cd scripts
+python demo.py
 ```
 
 ## Train it by yourself
 In root directory, train the original dataset by running:
 ```
-python ./scripts/run.py
+cd scripts
+python run.py
 ```
 or train the augmented dataset by running:
 ```
-python ./scripts/run.py -a
+cd scripts
+python run.py -a
 ```
