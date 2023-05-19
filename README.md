@@ -8,9 +8,7 @@ git clone git@github.com:liujie-zheng/face-to-bmi.git
 cd face-to-bmi
 ```
 It should take sometime since the weight files are large.
-<br>
 2. Install conda [here](https://conda.io/projects/conda/en/latest/user-guide/install/index.html).
-<br>
 3. Install dependencies by running:
 ```
 conda env create -f environment.yml
