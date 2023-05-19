@@ -26,7 +26,7 @@ In root directory, train the original dataset by running:
 ```
 python ./scripts/run.py
 ```
-Or train the augmented dataset by running:
+or train the augmented dataset by running:
 ```
 python ./scripts/run.py -a
 ```
