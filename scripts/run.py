@@ -4,6 +4,7 @@ from loader import get_dataloaders
 from models import get_model
 
 import numpy as np
+import argparse
 
 
 # train one epoch
@@ -27,7 +28,7 @@ def train(train_loader, model, loss_fn, optimizer):
         optimizer.step()
 
         # Show progress
-        if batch % 10 == 0:
+        if batch % 100 == 0:
             loss, current = loss.item(), batch * len(X)
             print(f"train loss: {loss:>7f} [{current:>5d}/{len(train_loader.dataset):>5d}]")
 
@@ -121,7 +122,7 @@ class EarlyStopping:
     def save_checkpoint(self, val_loss, model):
         if self.verbose:
             print(f'Validation loss decreased ({self.val_loss_min:.6f} --> {val_loss:.6f}).  Saving model ...')
-        torch.save(model.state_dict(), '../weights/no_aug_epoch_10.pt')  # save checkpoint
+        torch.save(model.state_dict(), '../weights/checkpoint.pt')  # save checkpoint
         self.val_loss_min = val_loss
 
 
@@ -129,11 +130,15 @@ class EarlyStopping:
 if __name__ == "__main__":
     device = "cuda" if torch.cuda.is_available() else "mps" if torch.backends.mps.is_available() else "cpu"
 
-    train_loader, val_loader, test_loader = get_dataloaders(16, augmented=False, vit_transformed=True, show_sample=True)
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--augmented', type=bool, default=False, help='set to True to use augmented dataset')
+    args = parser.parse_args()
+
+    train_loader, val_loader, test_loader = get_dataloaders(16, augmented=args.augmented, vit_transformed=True, show_sample=False)
     model = get_model().float().to(device)
     loss_fn = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=1e-3)
-    epochs = 20
+    epochs = 50
     early_stopping = EarlyStopping(patience=5, verbose=True)
 
     for t in range(epochs):
