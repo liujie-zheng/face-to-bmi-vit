@@ -38,17 +38,21 @@ sudo conda run -n face2bmi --no-capture-output python demo.py
 ```
 
 ## Run a demo with webcam in Jupyter Notebook
-1. Install notebook and prepare ipykernel by running:
+1. Install notebook, opencv and prepare ipykernel by running:
 ```
 conda install notebook
 conda install -c anaconda ipykernel
 python -m ipykernel install --user --name=face2bmi
 ```
-2. In the root directory, open notebook by running:
+2. Install opencv capturing image with webcam by running:
+```
+conda install -c conda-forge opencv
+```
+3. In the root directory, open notebook by running:
 ```
 jupyter notebook demo.ipynb
 ```
-3. Follow the notebook
+4. In the notebook, use ``Cell`` -> ``Run All`` to capture an image and predict BMI.
 
 
 ## Train it by yourself
