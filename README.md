@@ -1,7 +1,7 @@
 # Face to Body Mass Index
 Body mass index (BMI) is a measure of body fat based on height and weight that applies to adult men and women. 
 <br>
-This project predicts the BMI value with one image of the human face.
+This project predicts the BMI value with one image of a human face.
 
 ## Performance
 After training 10 epoches on the original unaugmented dataset, the model has an MAE loss of ``3.45`` on the test dataset.
