@@ -8,7 +8,7 @@ The performance of the model is on par with the current benchmarks set by **[sta
 After training 10 epoches, the model has a MAE loss of ``3.45`` on test dataset.
 ![alt original dataset sample](assets/original_dataset_sample.jpg)
 ### Augmented dataset
-Still training...
+After training 7 epoches, the model has a MAE loss of ``3.02`` on test dataset.
 ![alt augmented dataset sample](assets/augmented_dataset_sample.jpg)
 
 ## Installation
