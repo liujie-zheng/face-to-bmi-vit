@@ -41,10 +41,10 @@ sudo conda run -n face2bmi --no-capture-output python demo.py
 In root directory, train the original unaugmented dataset by running:
 ```
 cd scripts
-python run.py
+conda run -n face2bmi --no-capture-output python run.py
 ```
 or train the augmented dataset by running:
 ```
 cd scripts
-python run.py -a
+conda run -n face2bmi --no-capture-output python run.py --augmented=True
 ```
