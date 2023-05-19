@@ -2,7 +2,7 @@
 This project predicts the BMI value with one image of the human face.
 
 ## Performance
-After training 10 epoches on the original dataset, the model has an L1 loss of 3.45 on the test dataset.
+After training 10 epoches on the original unaugmented dataset, the model has an L1 loss of 3.45 on the test dataset.
 
 ## Installation (Linux)
 1. Clone this repository by running: (It should take some time since the weight files are large)
@@ -31,7 +31,7 @@ conda run -n face2bmi --no-capture-output python demo.py
 ```
 
 ## Train it by yourself
-In root directory, train the original dataset by running:
+In root directory, train the original unaugmented dataset by running:
 ```
 cd scripts
 python run.py
