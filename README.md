@@ -4,7 +4,7 @@ Body mass index (BMI) is a measure of body fat based on height and weight that a
 This project predicts the BMI value with one image of a human face.
 
 ## Performance
-With original unaugmented dataset, after training 10 epoches, the model has a MAE loss of ``3.45`` on the test dataset.
+With original unaugmented dataset, after training 10 epoches, the model has a MAE loss of ``3.45`` on the test dataset. <br>
 With augmented dataset, still training...
 
 ## Installation
