@@ -4,11 +4,12 @@ Body mass index (BMI) is a measure of body fat based on height and weight that a
 This project predicts the BMI value with one image of a human face.
 
 ## Performance
+The performance of the model is on par with the current benchmarks set by **[state-of-the-art methods](https://ieeexplore.ieee.org/document/9744191)**.
 ### Original dataset
-With original dataset, after training 10 epoches, the model has a MAE loss of ``3.45`` on the test dataset.
+After training 10 epoches, the model has a MAE loss of ``3.45`` on test dataset.
 ![alt original dataset sample](assets/original_dataset_sample.jpg)
 ### Augmented dataset
-With augmented dataset, still training...
+Still training...
 ![alt augmented dataset sample](assets/augmented_dataset_sample.jpg)
 
 ## Installation
@@ -30,7 +31,7 @@ conda activate face2bmi
 ```
 
 ## Run a demo in terminal
-1. (Optional) replace ./data/test_pic.jpg with your own image. Note: for your own image, a face should occupy a substantial part of the image for optimal results.
+1. (Optional) replace ./data/test_pic.jpg with your own image. **Note:** for your own image, a face should occupy a substantial part of the image for optimal results.
 2. In root directory, run:
 ```
 cd scripts
