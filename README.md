@@ -3,7 +3,7 @@ This model predicts **Body Mass Index (BMI)** with one image of a human face, wi
 ![alt flowchart](assets/flowchart.jpg)
 
 ## Performance
-The performance of the model is on par with the current benchmarks set by **[state-of-the-art methods](https://ieeexplore.ieee.org/document/9744191)**.
+The performance of this model is better than the benchmarks set by **[state-of-the-art method on VisualBMI dataset as of Jan 2024](https://arxiv.org/abs/2104.04733)** by **39.5%**.
 ### Original dataset
 After training 10 epoches, the model has a MAE loss of ``3.45`` on test dataset.
 ![alt original dataset sample](assets/original_dataset_sample.jpg)
